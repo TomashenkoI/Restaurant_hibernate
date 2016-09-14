@@ -9,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "employees")
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 public class Employee extends Tables {
 
     @Id

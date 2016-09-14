@@ -23,24 +23,13 @@ public class Main {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
         Main main = applicationContext.getBean(Main.class);
-        main.test();
+//        main.test();
+        main.execution();
 
     }
 
     public void test() {
-//        storageController.createPosition();
         storageController.createPosition();
-//        System.out.println(new OrdersDAO().getMaxId());
-//        System.out.println(new DishController().getMaxId());
-//        orderController.createPosition();
-//        orderController.deletePosition();
-//        employeeController.deletePosition();
-//        employeeController.createPosition();
-//        dishController.findPositionByName();
-//        dishController.deletePosition();
-//        dishController.createPosition();
-//        ingredientsController.showAllPositions();
-//        System.out.println(dishController.getMaxId());
     }
 
     public void execution() {
