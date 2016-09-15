@@ -41,25 +41,6 @@ public class CategoryDAO implements TableDAO<CategoryOfDishes>{
         return null;
     }
 
-    public void showAllPositions() {
-
-        List<CategoryOfDishes> list = new ArrayList<>();
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement()){
-            String sql = "SELECT * FROM category_of_dishes";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-//                CategoryOfDishes categoryOfDishes = createObject(resultSet);
-//                list.add(categoryOfDishes);
-            }
-            list.forEach(System.out::println);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

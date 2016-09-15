@@ -27,6 +27,11 @@ public class OrderController implements TableController {
         return result;
     }
 
+    @Transactional
+    public void showOpenedOrders() {
+        ordersDAO.findAllOpenedOrders().forEach(System.out::println);;
+    }
+
     @Override
     @Transactional
     public void deletePosition() {

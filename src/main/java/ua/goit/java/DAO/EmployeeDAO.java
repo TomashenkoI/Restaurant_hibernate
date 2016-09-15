@@ -46,6 +46,25 @@ public class EmployeeDAO implements TableDAO<Employee> {
 
     }
 
+    @Transactional
+    public List<Employee> findAllCooks() {
+
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select e from Employee e where e.position = :position");
+        query.setParameter("position", Position.COOK);
+
+        return query.list();
+    }
+
+    @Transactional
+    public List<Employee> findAllWaiters() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select e from Employee e where e.position = :position");
+        query.setParameter("position", Position.WAITER);
+
+        return query.list();
+    }
+
     public Employee findById(int id) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -80,10 +99,34 @@ public class EmployeeDAO implements TableDAO<Employee> {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Выбирите позицию:  \n"
+                            + "1 - Повар  \n"
+                            + "2 - Оффициант \n"
+                            + "3 - Менеджен \n"
+                            + "4 - Уборщик \n");
 
-        System.out.println("Выбирите позицию: ");
         int positionId = Integer.parseInt(scanner.nextLine());
-        employee.setPosition(positionId);
+        boolean flag = false;
+        while (!flag) {
+            switch (positionId) {
+                case 1:
+                    employee.setPosition(Position.COOK);
+                    flag = true;
+                    break;
+                case 2:
+                    employee.setPosition(Position.WAITER);
+                    flag = true;
+                    break;
+                case 3:
+                    employee.setPosition(Position.MANAGER);
+                    flag = true;
+                    break;
+                case 4:
+                    employee.setPosition(Position.CLEANER);
+                    flag = true;
+                    break;
+            }
+        }
 
         System.out.println("Введите имя :");
         String firstName = scanner.nextLine();

@@ -30,8 +30,9 @@ public class Employee extends Tables {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "position_id")
-    private int position;
+    @Column(name = "position")
+    @Enumerated(EnumType.STRING)
+    private Position position;
 
     @Column(name = "salary")
     private double salary;
@@ -76,11 +77,11 @@ public class Employee extends Tables {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

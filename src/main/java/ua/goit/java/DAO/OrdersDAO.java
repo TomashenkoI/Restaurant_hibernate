@@ -43,6 +43,11 @@ public class OrdersDAO {
     }
 
 
+    public List<Orders> findAllOpenedOrders() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select o from Orders o where o.access = true").list();
+    }
+
     public List<Orders> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("select o from Orders o").list();
@@ -70,12 +75,13 @@ public class OrdersDAO {
 
         Scanner scanner = new Scanner(System.in);
 
-        employeeController.showAllPositions();
-        System.out.println("Введите ID повара :");
-        int cookId = Integer.parseInt(scanner.nextLine());
-        orders.setEmployeeID(cookId);
+        employeeController.showAllWaiters();
+        System.out.println("Введите ID оффицианта :");
+        int waiterId = Integer.parseInt(scanner.nextLine());
+        orders.setEmployee(employeeController.getPositionById(waiterId));
 
         dishToOrderController.createPosition();
+        orders.setListOfDishes(getMaxId() + 1);
 
         System.out.println("Введите номер столика :");
         int tableNumber = Integer.parseInt(scanner.nextLine());
@@ -84,6 +90,7 @@ public class OrdersDAO {
         String date = requests.getCurrentTime();
         orders.setDate(date);
 
+        orders.setAccess(true);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -97,5 +104,6 @@ public class OrdersDAO {
     public void setDishToOrderController(DishToOrderController dishToOrderController) {
         this.dishToOrderController = dishToOrderController;
     }
+
 }
 

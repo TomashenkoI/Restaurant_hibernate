@@ -48,9 +48,6 @@ public class MenuDAO implements TableDAO<Menu> {
         return query.list();
     }
 
-    static int ID_MAX;
-
-
 
     public void enteringInformation(Menu menu) {
 

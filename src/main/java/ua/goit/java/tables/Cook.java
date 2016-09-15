@@ -9,23 +9,23 @@ import java.util.List;
  * Created by 7 on 08.09.2016.
  */
 @Entity
-public class Waiter extends Employee {
+public class Cook extends Employee {
 
     @OneToMany()
     @JoinColumn(name = "id")
-    private List<Orders> orders;
+    private List<CookedDish> cookedDishes;
 
-    public List<Orders> getOrders() {
-        return orders;
+    public List<CookedDish> getCookedDishes() {
+        return cookedDishes;
     }
 
-    public void setOrders(List<Orders> orders) {
-        this.orders = orders;
+    public void setCookedDishes(List<CookedDish> cookedDishes) {
+        this.cookedDishes = cookedDishes;
     }
 
     @Override
     public String toString() {
-        return "Waiter{" +
+        return "Cook{" +
                 "ID=" + getID() +  "\t" +
                 " lastName=" + "\t" + getLastName() +
                 " firstName=" +  "\t" + getFirstName() +
@@ -33,7 +33,7 @@ public class Waiter extends Employee {
                 " phoneNumber=" +  "\t" + getPhoneNumber() +
                 " position=" +  "\t" + getPosition() + "\t" +
                 " salary= " + getSalary() +
-                "orders=" + orders +
+                "cookedDishes=" + cookedDishes +
                 '}' ;
     }
 

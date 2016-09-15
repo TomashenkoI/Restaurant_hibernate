@@ -3,6 +3,7 @@ package ua.goit.java.DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.tables.Ingredient;
 import ua.goit.java.tables.Storage;
 
@@ -28,19 +29,44 @@ public class StorageDAO {
         sessionFactory.getCurrentSession().delete(storage);
     }
 
+    @Transactional
     public Storage findById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select s from Storage s where s.ID = :id");
+        Query query = session.createQuery("select s from Storage s where s.ingredient_ID = :id");
         query.setParameter("id", id);
 
         return (Storage) query.uniqueResult();
     }
 
+    @Transactional
     public List<Storage> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("select s from Storage s").list();
     }
 
+    @Transactional
+    public void decreaseIngredientAmountById(int id) {
+
+        Session session = sessionFactory.getCurrentSession();
+        int amount = getAmountByIngredientId(id) - 1;
+        Query query = session.createQuery("update Storage s set s.amount = :amount " +
+                                          "where s.ingredient_ID = :id");
+        query.setParameter("amount", amount);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
+    public int getAmountByIngredientId(int id) {
+        int amount;
+
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select s from Storage s where s.ingredient_ID = :id");
+        query.setParameter("id", id);
+        Storage storage = (Storage) query.uniqueResult();
+        amount = storage.getAmount();
+
+        return amount;
+    }
 
     public void enteringInformation() {
 

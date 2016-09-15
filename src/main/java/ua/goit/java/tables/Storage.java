@@ -11,25 +11,28 @@ import javax.persistence.*;
 @Table(name = "storage")
 public class Storage extends Tables {
 
+//    @Id
+//    @GeneratedValue(generator = "increment")
+//    @GenericGenerator(name = "increment", strategy = "increment")
+//    @Column(name = "id")
+//    private int ID;
+
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id")
-    private int ID;
-
     @Column(name = "ingredient_id")
     private int ingredient_ID;
 
     @Column(name = "amount")
     private int amount;
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+//    public int getID() {
+//        return ID;
+//    }
+//
+//    public void setID(int ID) {
+//        this.ID = ID;
+//    }
 
     public int getIngredient_ID() {
         return ingredient_ID;

@@ -18,18 +18,14 @@ public class Main {
     private OrderController orderController;
     private MenuController menuController;
     private StorageController storageController;
+    private CookedDishesController cookedDishesController;
 
     public static void main(String[] args) {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
         Main main = applicationContext.getBean(Main.class);
-//        main.test();
         main.execution();
 
-    }
-
-    public void test() {
-        storageController.createPosition();
     }
 
     public void execution() {
@@ -127,10 +123,6 @@ public class Main {
         this.ingredientsController = ingredientsController;
     }
 
-    public void setPositionController(PositionController positionController) {
-        this.positionController = positionController;
-    }
-
     public void setEmployeeController(EmployeeController employeeController) {
         this.employeeController = employeeController;
     }
@@ -149,5 +141,9 @@ public class Main {
 
     public void setStorageController(StorageController storageController) {
         this.storageController = storageController;
+    }
+
+    public void setCookedDishesController(CookedDishesController cookedDishesController) {
+        this.cookedDishesController = cookedDishesController;
     }
 }

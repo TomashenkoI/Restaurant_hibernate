@@ -43,9 +43,22 @@ public class EmployeeController implements TableController{
         employeeDAO.findAll().forEach(System.out::println);
     }
 
+    public void showAllCooks(){
+        employeeDAO.findAllCooks().forEach(System.out::println);
+    }
+
+    public void showAllWaiters(){
+        employeeDAO.findAllWaiters().forEach(System.out::println);
+    }
+
     @Transactional
     public void findPositionByName(){
         System.out.println(employeeDAO.findByName1());
+    }
+
+    public Employee getPositionById(int id){
+
+        return employeeDAO.findById(id);
     }
 
     public void setEmployeeDAO(EmployeeDAO employeeDAO) {

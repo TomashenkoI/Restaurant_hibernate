@@ -17,17 +17,12 @@ public class Orders extends Tables {
     @Column(name = "id")
     private int ID;
 
-//    @ManyToOne
-    @Column(name = "employee_id")
-    private int employeeID;
+    @ManyToOne
+    @JoinColumn(name = "waiter_id")
+    private Employee employee;
 
-//    @ManyToMany()
-//    @JoinTable(
-//            name = "dish_to_order",
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            inverseJoinColumns = @JoinColumn(name = "dish_id")
-//    )
-//    private List<Dish> dishes;
+//    @Column(name = "waiter_id")
+//    private int employeeID;
 
     @Column(name = "list_of_dishes")
     @GeneratedValue(generator = "increment")
@@ -52,20 +47,19 @@ public class Orders extends Tables {
         this.ID = ID;
     }
 
-
-    public int getEmployeeID() {
-        return employeeID;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public int getDishes() {
         return listOfDishes;
     }
 
-    public void setDishes(int dishes) {
+    public void setListOfDishes(int dishes) {
         this.listOfDishes = dishes;
     }
 
@@ -85,13 +79,15 @@ public class Orders extends Tables {
         this.date = date;
     }
 
-
+    public void setAccess(boolean access) {
+        this.access = access;
+    }
 
     @Override
     public String toString() {
         return "Orders{" +
                 "ID=" + ID +
-                ", employeeID=" + employeeID +
+                ", employee=" + employee +
                 ", listOfDishesID=" + listOfDishes +
                 ", tableNumber=" + tableNumber +
                 ", date='" + date + '\'' +

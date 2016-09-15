@@ -16,7 +16,6 @@ import java.util.Scanner;
  */
 public class DishToOrderDAO{
 
-    private OrdersDAO ordersDAO;
     private OrderController orderController;
     private DishController dishController;
 
@@ -81,8 +80,5 @@ public class DishToOrderDAO{
         this.dishController = dishController;
     }
 
-    public void setOrdersDAO(OrdersDAO ordersDAO) {
-        this.ordersDAO = ordersDAO;
-    }
 }
 
