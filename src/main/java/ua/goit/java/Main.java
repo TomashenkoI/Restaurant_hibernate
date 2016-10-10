@@ -22,10 +22,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("src/main/webapp/WEB-INF/view/application-context.xml", "src/main/webapp/WEB-INF/view/hibernate-context.xml");
         Main main = applicationContext.getBean(Main.class);
         main.execution();
 
+    }
+
+    public void test() {
+        ingredientsController.showAllPositions();
     }
 
     public void execution() {
@@ -53,6 +57,7 @@ public class Main {
 
                 switch (number) {
                     case 1:
+//                        System.out.println("Не работает !");
                         System.out.println("Выбирите действие :" + "\n" +
                                 "1 : посмотреть всех сотрудников" + "\n" +
                                 "2 : добавить сотрудника " + "\n" +

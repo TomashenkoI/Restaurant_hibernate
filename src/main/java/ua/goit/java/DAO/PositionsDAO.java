@@ -3,8 +3,7 @@ package ua.goit.java.DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ua.goit.java.tables.Position;
-import ua.goit.java.tables.Positions;
+import ua.goit.java.Model.Positions;
 
 import java.util.List;
 

@@ -6,9 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.Controller.DishController;
 import ua.goit.java.Controller.IngredientsController;
-import ua.goit.java.tables.ListOfIngredients;
+import ua.goit.java.Model.ListOfIngredients;
 
-import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Scanner;
 

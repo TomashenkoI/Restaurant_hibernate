@@ -2,7 +2,7 @@ package ua.goit.java.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.DAO.DishesDAO;
-import ua.goit.java.tables.Dish;
+import ua.goit.java.Model.Dish;
 
 import java.util.HashSet;
 import java.util.Scanner;

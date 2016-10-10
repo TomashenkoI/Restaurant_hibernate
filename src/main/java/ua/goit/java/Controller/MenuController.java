@@ -1,7 +1,7 @@
 package ua.goit.java.Controller;
 
 import ua.goit.java.DAO.MenuDAO;
-import ua.goit.java.tables.Menu;
+import ua.goit.java.Model.Menu;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -3,24 +3,17 @@ package ua.goit.java.DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.tables.Employee;
-import ua.goit.java.tables.Position;
-import ua.goit.java.tables.Positions;
+import ua.goit.java.Model.Employee;
+import ua.goit.java.Model.Position;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static ua.goit.java.DAO.Requests.*;
 
 /**
  * Created by 7 on 20.08.2016.
  */
-public class EmployeeDAO implements TableDAO<Employee> {
+public class EmployeeDAO {
 
     private SessionFactory sessionFactory;
 
@@ -34,13 +27,11 @@ public class EmployeeDAO implements TableDAO<Employee> {
         sessionFactory.getCurrentSession().delete(employee);
     }
 
-    public List<Employee> findByName1() {
+    public List<Employee> findByName1(String name) {
 
         Session session = sessionFactory.getCurrentSession();
-        System.out.println("Введите имя для поиска: ");
-        String name = new Scanner(System.in).nextLine();
         Query query = session.createQuery("select e from Employee e where e.firstName like :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%"+name+"%");
 
         return query.list();
 
@@ -54,6 +45,7 @@ public class EmployeeDAO implements TableDAO<Employee> {
         query.setParameter("position", Position.COOK);
 
         return query.list();
+
     }
 
     @Transactional
@@ -75,16 +67,40 @@ public class EmployeeDAO implements TableDAO<Employee> {
 
     }
 
-    public Employee findByName() {
+    public Employee findByName(String name) {
 
         Session session = sessionFactory.getCurrentSession();
-        System.out.println("Введите имя :");
-        String name = new Scanner(System.in).nextLine();
         Query query = session.createQuery("select e from Employee e where e.firstName like :name");
         query.setParameter("name", name);
 
         return (Employee) query.uniqueResult();
 
+    }
+
+    @Transactional
+    public void updateEmployee(int employeeId, Employee newEmployee){
+        Session session = sessionFactory.getCurrentSession();
+        Employee employee = session.get(Employee.class, employeeId);
+
+        if (newEmployee.getFirstName() != null) {
+            employee.setFirstName(newEmployee.getFirstName());
+        }
+        if (newEmployee.getLastName() != null) {
+            employee.setLastName(newEmployee.getLastName());
+        }
+        if (newEmployee.getPosition() != null) {
+            employee.setPosition(newEmployee.getPosition());
+        }
+        if (newEmployee.getPhoneNumber() != null) {
+            employee.setPhoneNumber(newEmployee.getPhoneNumber());
+        }
+        if (newEmployee.getDateOfBirth() != null) {
+            employee.setDateOfBirth(newEmployee.getDateOfBirth());
+        }
+        if ((Double) newEmployee.getSalary() != null) {
+            employee.setSalary(newEmployee.getSalary());
+        }
+        session.update(employee);
     }
 
     @Transactional

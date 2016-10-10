@@ -6,12 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.tables.Dish;
-import ua.goit.java.tables.Employee;
-import ua.goit.java.tables.Ingredient;
+import ua.goit.java.Model.Ingredient;
 
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 

@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.Controller.DishController;
 import ua.goit.java.Controller.EmployeeController;
 import ua.goit.java.Controller.OrderController;
-import ua.goit.java.tables.CookedDish;
-import ua.goit.java.tables.ListOfIngredients;
+import ua.goit.java.Model.CookedDish;
+import ua.goit.java.Model.ListOfIngredients;
 
 import java.util.ArrayList;
 import java.util.List;

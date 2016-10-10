@@ -1,7 +1,7 @@
 package ua.goit.java.Controller;
 
 import ua.goit.java.DAO.PositionsDAO;
-import ua.goit.java.tables.Positions;
+import ua.goit.java.Model.Positions;
 
 import java.util.Scanner;
 

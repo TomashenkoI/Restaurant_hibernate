@@ -8,7 +8,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.Controller.DishToOrderController;
 import ua.goit.java.Controller.EmployeeController;
-import ua.goit.java.tables.Orders;
+import ua.goit.java.Model.Orders;
 
 import java.util.List;
 import java.util.Scanner;

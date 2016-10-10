@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Restaurant_MVC:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Restaurant_MVC-1.0.war">
+      <element id="artifact" artifact-name="Restaurant_MVC:war exploded" />
+    </root>
+  </artifact>
+</component>

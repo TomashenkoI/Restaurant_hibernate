@@ -6,12 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.Controller.DishController;
 import ua.goit.java.Controller.ListOfIngredientsController;
-import ua.goit.java.tables.Dish;
+import ua.goit.java.Model.Dish;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by 7 on 21.08.2016.
@@ -19,7 +17,11 @@ import java.util.Scanner;
 public class DishesDAO implements TableDAO<Dish> {
 
     private SessionFactory sessionFactory;
-    private DishController dishController;
+
+    @Override
+    public Dish findByName() {
+        return null;
+    }
 
     public void save(Dish dish) {
         Session session = sessionFactory.getCurrentSession();
@@ -37,16 +39,38 @@ public class DishesDAO implements TableDAO<Dish> {
         return session.createQuery("select d from Dish d").list();
     }
 
-    public Dish findByName() {
+    @Transactional
+    public List<Dish> findByName(String name) {
 
         Session session = sessionFactory.getCurrentSession();
-        System.out.println("Введите название: ");
-        String name = new Scanner(System.in).nextLine();
         Query query = session.createQuery("select d from Dish d where d.name like :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%"+name+"%");
 
-        return (Dish) query.uniqueResult();
+        return query.list();
 
+    }
+
+    @Transactional
+    public void updateDish(int dishId, Dish newDish){
+        Session session = sessionFactory.getCurrentSession();
+        Dish dish = session.get(Dish.class, dishId);
+
+        if (newDish.getName() != null) {
+            dish.setName(newDish.getName());
+        }
+        if ((Integer) newDish.getListOfIngredients_ID() != null) {
+            dish.setListOfIngredients_ID(newDish.getListOfIngredients_ID());
+        }
+        if (newDish.getDishCategory() != null) {
+            dish.setDishCategory(newDish.getDishCategory());
+        }
+        if ((Double)newDish.getPrice() != null) {
+            dish.setPrice(newDish.getPrice());
+        }
+        if ((Integer)newDish.getWeight() != null) {
+            dish.setWeight(newDish.getWeight());
+        }
+        session.update(dish);
     }
 
     @Transactional
@@ -73,28 +97,6 @@ public class DishesDAO implements TableDAO<Dish> {
 
     public void enteringInformation(Dish dish) {
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Выбирите категорию :");
-        int categoryID = Integer.parseInt(scanner.nextLine());
-        dish.setCategoryOfDishes_ID(categoryID);
-
-        System.out.println("Введите название блюда :");
-        String name = scanner.nextLine();
-        dish.setName(name);
-
-        System.out.println("Введите перечень ингредиентов :");
-        listOfIngredientsController.createPosition();
-        dish.setListOfIngredients_ID(dishController.getMaxId() + 1);
-
-        System.out.println("Введите цену :");
-        double price = Double.parseDouble(scanner.nextLine());
-        dish.setPrice(price);
-
-        System.out.println("Введите вес блюда :");
-        int weight = Integer.parseInt(scanner.nextLine());
-        dish.setWeight(weight);
-
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -103,9 +105,5 @@ public class DishesDAO implements TableDAO<Dish> {
 
     public void setListOfIngredientsController(ListOfIngredientsController listOfIngredientsController) {
         this.listOfIngredientsController = listOfIngredientsController;
-    }
-
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
     }
 }

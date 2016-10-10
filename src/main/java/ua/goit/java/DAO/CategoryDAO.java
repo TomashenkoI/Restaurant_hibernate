@@ -2,13 +2,9 @@ package ua.goit.java.DAO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ua.goit.java.tables.CategoryOfDishes;
+import ua.goit.java.Model.CategoryOfDishes;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-
-import static ua.goit.java.DAO.Requests.*;
 
 /**
  * Created by 7 on 22.08.2016.

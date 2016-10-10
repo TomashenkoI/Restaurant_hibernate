@@ -2,7 +2,7 @@ package ua.goit.java.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.DAO.CookedDishesDAO;
-import ua.goit.java.tables.CookedDish;
+import ua.goit.java.Model.CookedDish;
 
 /**
  * Created by 7 on 15.09.2016.

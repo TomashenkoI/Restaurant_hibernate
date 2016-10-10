@@ -2,7 +2,7 @@ package ua.goit.java.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.DAO.OrdersDAO;
-import ua.goit.java.tables.Orders;
+import ua.goit.java.Model.Orders;
 
 import java.util.Scanner;
 

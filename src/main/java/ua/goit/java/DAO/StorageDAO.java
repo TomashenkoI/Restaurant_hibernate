@@ -4,10 +4,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.tables.Ingredient;
-import ua.goit.java.tables.Storage;
+import ua.goit.java.Model.Ingredient;
+import ua.goit.java.Model.Storage;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 

@@ -2,7 +2,7 @@ package ua.goit.java.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.DAO.IngredientsDAO;
-import ua.goit.java.tables.Ingredient;
+import ua.goit.java.Model.Ingredient;
 
 import java.util.HashSet;
 import java.util.Scanner;

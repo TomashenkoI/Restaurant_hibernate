@@ -2,7 +2,7 @@ package ua.goit.java.Controller;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.DAO.EmployeeDAO;
-import ua.goit.java.tables.Employee;
+import ua.goit.java.Model.Employee;
 
 import java.util.HashSet;
 import java.util.Scanner;
@@ -53,7 +53,9 @@ public class EmployeeController implements TableController{
 
     @Transactional
     public void findPositionByName(){
-        System.out.println(employeeDAO.findByName1());
+        System.out.println("Введите имя");
+        String name = new Scanner(System.in).nextLine();
+        System.out.println(employeeDAO.findByName1(name));
     }
 
     public Employee getPositionById(int id){

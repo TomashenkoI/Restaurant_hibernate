@@ -3,7 +3,7 @@ package ua.goit.java.DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ua.goit.java.tables.Menu;
+import ua.goit.java.Model.Menu;
 
 import java.util.List;
 import java.util.Scanner;

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.Controller.DishController;
 import ua.goit.java.Controller.OrderController;
-import ua.goit.java.tables.DishToOrder;
+import ua.goit.java.Model.DishToOrder;
 
 import java.util.List;
 import java.util.Scanner;
