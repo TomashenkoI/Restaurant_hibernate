@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by 7 on 07.09.2016.
  */
-public class DishController implements TableController {
+public class DishesController implements TableController {
 
     private DishesDAO dishesDAO;
     private ListOfIngredientsController listOfIngredientsController;

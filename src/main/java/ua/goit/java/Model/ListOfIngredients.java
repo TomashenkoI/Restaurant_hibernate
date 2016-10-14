@@ -1,9 +1,8 @@
 package ua.goit.java.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /**
  * Created by 7 on 20.08.2016.
@@ -16,6 +15,8 @@ public class ListOfIngredients extends Tables {
     @Column(name = "ingredient_id")
     private int ingredientID;
 
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "dish_id")
     private int dishID;
 

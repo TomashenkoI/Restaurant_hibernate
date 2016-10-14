@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.Controller.DishToOrderController;
-import ua.goit.java.Controller.EmployeeController;
+import ua.goit.java.Controller.EmployeesController;
 import ua.goit.java.Model.Orders;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class OrdersDAO {
 
-    private EmployeeController employeeController;
+    private EmployeesController employeesController;
     private DishToOrderController dishToOrderController;
 
     private SessionFactory sessionFactory;
@@ -75,10 +75,10 @@ public class OrdersDAO {
 
         Scanner scanner = new Scanner(System.in);
 
-        employeeController.showAllWaiters();
+        employeesController.showAllWaiters();
         System.out.println("Введите ID оффицианта :");
         int waiterId = Integer.parseInt(scanner.nextLine());
-        orders.setEmployee(employeeController.getPositionById(waiterId));
+        orders.setEmployee(employeesController.getPositionById(waiterId));
 
         dishToOrderController.createPosition();
         orders.setListOfDishes(getMaxId() + 1);
@@ -97,8 +97,8 @@ public class OrdersDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public void setEmployeeController(EmployeeController employeeController) {
-        this.employeeController = employeeController;
+    public void setEmployeesController(EmployeesController employeesController) {
+        this.employeesController = employeesController;
     }
 
     public void setDishToOrderController(DishToOrderController dishToOrderController) {

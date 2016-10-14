@@ -4,7 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.Controller.DishController;
+import ua.goit.java.Controller.DishesController;
 import ua.goit.java.Controller.IngredientsController;
 import ua.goit.java.Model.ListOfIngredients;
 
@@ -18,8 +18,8 @@ public class ListOfIngredientsDAO implements TableDAO<ListOfIngredients> {
 
     private SessionFactory sessionFactory;
 
-    IngredientsController ingredientsController = new IngredientsController();
-    private DishController dishController = new DishController();
+    IngredientsController ingredientsController;
+    private DishesController dishesController;
 
     @Override
     public void save(ListOfIngredients listOfIngredients) {
@@ -63,7 +63,7 @@ public class ListOfIngredientsDAO implements TableDAO<ListOfIngredients> {
 
         Scanner scanner = new Scanner(System.in);
 
-        int id = dishController.getMaxId() + 1;
+        int id = dishesController.getMaxId() + 1;
         String enteredString;
 
         while (true) {
@@ -87,7 +87,7 @@ public class ListOfIngredientsDAO implements TableDAO<ListOfIngredients> {
         this.ingredientsController = ingredientsController;
     }
 
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
+    public void setDishesController(DishesController dishesController) {
+        this.dishesController = dishesController;
     }
 }

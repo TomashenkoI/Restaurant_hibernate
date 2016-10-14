@@ -67,6 +67,16 @@ public class IngredientsDAO implements TableDAO<Ingredient> {
         return (Ingredient) query.uniqueResult();
     }
 
+    public int getIngredientIdByName(String name) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("select i.ID from Ingredient i where i.name = :name");
+        query.setParameter("name", name);
+
+        return (int) query.uniqueResult();
+
+    }
+
     @Transactional
     public int getMaxId() {
         Session session = sessionFactory.getCurrentSession();

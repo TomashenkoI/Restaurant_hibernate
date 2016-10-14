@@ -4,8 +4,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.Controller.DishController;
-import ua.goit.java.Controller.EmployeeController;
+import ua.goit.java.Controller.DishesController;
+import ua.goit.java.Controller.EmployeesController;
 import ua.goit.java.Controller.OrderController;
 import ua.goit.java.Model.CookedDish;
 import ua.goit.java.Model.ListOfIngredients;
@@ -19,8 +19,8 @@ import java.util.Scanner;
  */
 public class CookedDishesDAO implements TableDAO<CookedDish>{
 
-    private DishController dishController;
-    private EmployeeController employeeController;
+    private DishesController dishesController;
+    private EmployeesController employeesController;
     private OrderController orderController;
     private ListOfIngredientsDAO listOfIngredientsDAO;
     private StorageDAO storageDAO;
@@ -70,16 +70,16 @@ public class CookedDishesDAO implements TableDAO<CookedDish>{
 
         Requests requests = new Requests();
 
-        dishController.showAllPositions();
+        dishesController.showAllPositions();
         System.out.println("Введите ID блюда :");
         int dishId = Integer.parseInt(scanner.nextLine());
         cookedDish.setDishId(dishId);
 
         if (enoughIngredients(cookedDish)) {
-            employeeController.showAllCooks();
+            employeesController.showAllCooks();
             System.out.println("Введите ID повара :");
             int cookId = Integer.parseInt(scanner.nextLine());
-            cookedDish.setEmployee(employeeController.getPositionById(cookId));
+            cookedDish.setEmployee(employeesController.getPositionById(cookId));
 
             orderController.showOpenedOrders();
             System.out.println("Введите ID заказа :");
@@ -134,12 +134,12 @@ public class CookedDishesDAO implements TableDAO<CookedDish>{
         this.sessionFactory = sessionFactory;
     }
 
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
+    public void setDishesController(DishesController dishesController) {
+        this.dishesController = dishesController;
     }
 
-    public void setEmployeeController(EmployeeController employeeController) {
-        this.employeeController = employeeController;
+    public void setEmployeesController(EmployeesController employeesController) {
+        this.employeesController = employeesController;
     }
 
     public void setOrderController(OrderController orderController) {

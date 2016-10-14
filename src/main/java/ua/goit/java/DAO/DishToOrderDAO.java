@@ -4,7 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.Controller.DishController;
+import ua.goit.java.Controller.DishesController;
 import ua.goit.java.Controller.OrderController;
 import ua.goit.java.Model.DishToOrder;
 
@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class DishToOrderDAO{
 
     private OrderController orderController;
-    private DishController dishController;
+    private DishesController dishesController;
 
     private SessionFactory sessionFactory;
 
@@ -56,7 +56,7 @@ public class DishToOrderDAO{
         String enteredString;
 
         for (;;) {
-            dishController.showAllPositions();
+            dishesController.showAllPositions();
             System.out.println("Выбирите номер блюда или введите 'exit' :");
             enteredString = scanner.nextLine();
             if (enteredString.equals("exit")) break;
@@ -76,8 +76,8 @@ public class DishToOrderDAO{
         this.orderController = orderController;
     }
 
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
+    public void setDishesController(DishesController dishesController) {
+        this.dishesController = dishesController;
     }
 
 }

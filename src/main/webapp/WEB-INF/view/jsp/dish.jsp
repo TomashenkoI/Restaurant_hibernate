@@ -29,9 +29,18 @@
         <td>${dish.weight}</td>
     </tr>
 
-    <c:set var="dishID" value="${dish.ID}"/>
-
 </table>
+<table>
+    <tr>
+        <th>Список ингредиентов :</th>
+    </tr>
+    <c:forEach items="${ingredientsToDish}" var="ingredient">
+        <tr>
+            <td>- ${ingredient.name}</td>
+        </tr>
+    </c:forEach>
+</table>
+<c:set var="dishID" value="${dish.ID}"/>
 <p/>
 <input type="button" onclick="location.href='/update_dishId=${dishID}';" value="Update info"/>
 <p/>

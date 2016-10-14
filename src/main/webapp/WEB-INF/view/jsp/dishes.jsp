@@ -39,7 +39,7 @@
         <input type="button" onclick="location.href='/newDish';" value="Add new dish"/>
         <p/>
         <form action="/findDishesByName">
-            <input type="text" value="find by name" name="dishName">
+            <input type="text" placeholder="find by name" name="dishName">
             <button>Search</button>
         </form>
     </div>

@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by 7 on 01.09.2016.
  */
-public class EmployeeController implements TableController{
+public class EmployeesController implements TableController{
 
     private EmployeeDAO employeeDAO;
 

@@ -1,35 +1,36 @@
 package ua.goit.java;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.goit.java.Controller.*;
+import ua.goit.java.DAO.IngredientsDAO;
 
 import java.util.Scanner;
 
-/**
- * Created by 7 on 12.08.2016.
- */
 public class Main {
 
-    private EmployeeController employeeController;
-    private DishController dishController;
+    private EmployeesController employeesController;
+    private DishesController dishesController;
     private IngredientsController ingredientsController;
     private PositionController positionController;
     private OrderController orderController;
     private MenuController menuController;
     private StorageController storageController;
     private CookedDishesController cookedDishesController;
+    private IngredientsDAO ingredientsDAO;
 
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("src/main/webapp/WEB-INF/view/application-context.xml", "src/main/webapp/WEB-INF/view/hibernate-context.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
         Main main = applicationContext.getBean(Main.class);
-        main.execution();
+        main.test();
 
     }
 
     public void test() {
-        ingredientsController.showAllPositions();
+//        ingredientsController.showAllPositions();
+        ingredientsDAO.findAll().forEach(System.out::println);
     }
 
     public void execution() {
@@ -65,7 +66,7 @@ public class Main {
                                 "4 : найти сотрудника по имени" + "\n" +
                                 "0 : выход");
                         number = Integer.parseInt(scanner.nextLine());
-                        flag = switchCases(flag, number, employeeController);
+                        flag = switchCases(flag, number, employeesController);
                         break;
                     case 2:
                         System.out.println("Выбирите действие :" + "\n" +
@@ -75,7 +76,7 @@ public class Main {
                                 "4 : найти блюдо по названию" + "\n" +
                                 "0 : выход");
                         number = Integer.parseInt(scanner.nextLine());
-                        flag = switchCases(flag, number, dishController);
+                        flag = switchCases(flag, number, dishesController);
                         break;
                     case 3 :
                         System.out.println("Выбирите действие :" + "\n" +
@@ -128,12 +129,12 @@ public class Main {
         this.ingredientsController = ingredientsController;
     }
 
-    public void setEmployeeController(EmployeeController employeeController) {
-        this.employeeController = employeeController;
+    public void setEmployeesController(EmployeesController employeesController) {
+        this.employeesController = employeesController;
     }
 
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
+    public void setDishesController(DishesController dishesController) {
+        this.dishesController = dishesController;
     }
 
     public void setOrderController(OrderController orderController) {
@@ -150,5 +151,10 @@ public class Main {
 
     public void setCookedDishesController(CookedDishesController cookedDishesController) {
         this.cookedDishesController = cookedDishesController;
+    }
+
+    @Autowired
+    public void setIngredientsDAO(IngredientsDAO ingredientsDAO) {
+        this.ingredientsDAO = ingredientsDAO;
     }
 }

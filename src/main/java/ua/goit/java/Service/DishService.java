@@ -17,8 +17,7 @@ public class DishService {
 
     private DishesDAO dishesDao;
     private ListOfIngredientsDAO listOfIngredientsDAO;
-    private IngredientsDAO ingredientsDAO = new IngredientsDAO();
-
+    private IngredientsDAO ingredientsDAO;
 
     public List<Dish> getDishes(){
         return dishesDao.findAll();
@@ -39,11 +38,24 @@ public class DishService {
             ingredients.add(ingredientsDAO.getById(ingredientsToDish.getIngredientID()));
         }
 
-        System.out.println("!!!");
-        System.out.println(ingredients.size());
-
         return ingredients;
 
+    }
+
+    @Transactional
+    public int setListOfIngredients(List listOfIngredientsForTheDish) {
+
+        int id = dishesDao.getMaxId() + 1;
+
+        for (int i = 0; i < listOfIngredientsForTheDish.size(); i++) {
+
+            ListOfIngredients listOfIngredients = new ListOfIngredients();
+            listOfIngredients.setDishID(id);
+            listOfIngredients.setIngredientID(ingredientsDAO.getIngredientIdByName(listOfIngredientsForTheDish.get(i).toString()));
+            listOfIngredientsDAO.save(listOfIngredients);
+        }
+
+        return id;
     }
 
     @Transactional
@@ -54,6 +66,7 @@ public class DishService {
     @Transactional
     public void deleteDish(Dish dish) {
         dishesDao.remove(dish);
+        listOfIngredientsDAO.removeById(dish.getID());
     }
 
     public List<Dish> getDishByName(String dishName) {
@@ -65,7 +78,11 @@ public class DishService {
         dishesDao.save(dish);
     }
 
+    public List<Ingredient> getAllIngredients() {
+        return ingredientsDAO.findAll();
+    }
 
+    @Transactional
     public void setDishCategory(String category, Dish dish) {
 
         if (category.equals("Soup")) {
@@ -81,6 +98,20 @@ public class DishService {
         }
     }
 
+    @Transactional
+    public Dish setInformation(String name, String category, int price, int weight, List listOfIngredients) {
+
+        Dish dish = new Dish();
+
+        dish.setName(name);
+        dish.setPrice(price);
+        dish.setWeight(weight);
+        dish.setListOfIngredients_ID(setListOfIngredients(listOfIngredients));
+        setDishCategory(category, dish);
+
+        return dish;
+    }
+
     public void setDishesDao(DishesDAO dishesDao) {
         this.dishesDao = dishesDao;
     }
@@ -88,6 +119,11 @@ public class DishService {
     @Autowired
     public void setListOfIngredientsDAO(ListOfIngredientsDAO listOfIngredientsDAO) {
         this.listOfIngredientsDAO = listOfIngredientsDAO;
+    }
+
+    @Autowired
+    public void setIngredientsDAO(IngredientsDAO ingredientsDAO) {
+        this.ingredientsDAO = ingredientsDAO;
     }
 }
 

@@ -4,25 +4,33 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
        default-autowire="byName">
 
+    <bean id="storageService" class="ua.goit.java.Service.StorageService">
+        <property name="storageDAO" ref="storageDao"/>
+    </bean>
+    <bean id="ingredientService" class="ua.goit.java.Service.IngredientService">
+        <property name="ingredientsDAO" ref="ingredientsDao"/>
+        <property name="listOfIngredientsDAO" ref="listOfIngredientsDao"/>
+    </bean>
     <bean id="employeeService" class="ua.goit.java.Service.EmployeeService"/>
     <bean id="dishService" class="ua.goit.java.Service.DishService">
         <property name="listOfIngredientsDAO" ref="listOfIngredientsDao"/>
+        <property name="ingredientsDAO" ref="ingredientsDao"/>
     </bean>
 
     <bean id="main" class="ua.goit.java.Main">
-        <property name="employeeController" ref="employeeController"/>
-        <property name="dishController" ref="dishController"/>
+        <property name="employeesController" ref="employeesController"/>
+        <property name="dishesController" ref="dishesController"/>
         <property name="ingredientsController" ref="ingredientsController"/>
         <property name="orderController" ref="orderController"/>
         <property name="storageController" ref="storageController"/>
         <property name="cookedDishesController" ref="cookedDishesController"/>
     </bean>
 
-    <bean id="employeeController" class="ua.goit.java.Controller.EmployeeController">
+    <bean id="employeesController" class="ua.goit.java.Controller.EmployeesController">
         <property name="employeeDAO" ref="employeeDao"/>
     </bean>
 
-    <bean id="dishController" class="ua.goit.java.Controller.DishController">
+    <bean id="dishesController" class="ua.goit.java.Controller.DishesController">
         <property name="dishesDAO" ref="dishesDao"/>
         <property name="listOfIngredientsController" ref="listOfIngredientsController"/>
     </bean>
@@ -67,8 +75,8 @@
     <bean id="cookedDishesDao" class="ua.goit.java.DAO.CookedDishesDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="orderController" ref="orderController"/>
-        <property name="dishController" ref="dishController"/>
-        <property name="employeeController" ref="employeeController"/>
+        <property name="dishesController" ref="dishesController"/>
+        <property name="employeesController" ref="employeesController"/>
         <property name="listOfIngredientsDAO" ref="listOfIngredientsDao"/>
         <property name="storageDAO" ref="storageDao"/>
         <property name="ingredientsDAO" ref="ingredientsDao"/>
@@ -82,7 +90,7 @@
     <bean id="dishToOrderDao" class="ua.goit.java.DAO.DishToOrderDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="orderController" ref="orderController"/>
-        <property name="dishController" ref="dishController"/>
+        <property name="dishesController" ref="dishesController"/>
     </bean>
 
     <bean id="employeeDao" class="ua.goit.java.DAO.EmployeeDAO">
@@ -96,7 +104,7 @@
     <bean id="listOfIngredientsDao" class="ua.goit.java.DAO.ListOfIngredientsDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="ingredientsController" ref="ingredientsController"/>
-        <property name="dishController" ref="dishController"/>
+        <property name="dishesController" ref="dishesController"/>
     </bean>
 
     <bean id="menuDao" class="ua.goit.java.DAO.MenuDAO">
@@ -105,7 +113,7 @@
 
     <bean id="ordersDao" class="ua.goit.java.DAO.OrdersDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
-        <property name="employeeController" ref="employeeController"/>
+        <property name="employeesController" ref="employeesController"/>
         <property name="dishToOrderController" ref="dishToOrderController"/>
     </bean>
 

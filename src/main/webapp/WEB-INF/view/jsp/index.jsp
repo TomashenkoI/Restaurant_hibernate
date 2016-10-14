@@ -8,10 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        body {
+            background: url("/images/background.jpg");
+            background-size: cover;
+        }
+    </style>
     <title>Title</title>
 </head>
 <body>
-    <h1>Hello GoIT!. It is now: ${currentTime}</h1>
 
     <a href="/employees">Show all employees</a>
     <p/>

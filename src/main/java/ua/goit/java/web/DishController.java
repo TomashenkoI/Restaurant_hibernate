@@ -10,17 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.goit.java.Model.Dish;
 import ua.goit.java.Model.Ingredient;
 import ua.goit.java.Service.DishService;
+import ua.goit.java.Service.IngredientService;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 7 on 22.09.2016.
- */
 @Controller
-public class DishController {
+public class DishController{
 
     private DishService dishService;
+    private IngredientService ingredientService;
 
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView employees(){
@@ -48,20 +48,25 @@ public class DishController {
     }
 
     @RequestMapping(value = "/dishes", method = RequestMethod.POST)
-    public ModelAndView addNewDish(@RequestParam("dishName") String name,
+    public ModelAndView addNewDish(@RequestParam("selectedIngredients") ArrayList selectedIngredients,
+                                   @RequestParam("dishName") String name,
                                    @RequestParam("dishCategory") String category,
                                    @RequestParam("dishPrice") int price,
-                                   @RequestParam("dishWeight") int weight)
+                                   @RequestParam("dishWeight") int weight
+                                   )
     {
 
         ModelAndView modelAndView = new ModelAndView();
+
+        for (int i = 0; i < selectedIngredients.size(); i++) {
+            System.out.println(selectedIngredients.get(i));
+        }
 
         Dish dish = new Dish();
         dish.setName(name);
         dish.setPrice(price);
         dish.setWeight(weight);
-        dish.setListOfIngredients_ID(1);
-
+        dish.setListOfIngredients_ID(dishService.setListOfIngredients(selectedIngredients));
         dishService.setDishCategory(category, dish);
 
         dishService.addNewDish(dish);
@@ -74,12 +79,13 @@ public class DishController {
     @RequestMapping(value = "/dishes/dishId={dishId}", method = RequestMethod.GET)
     public ModelAndView employee(@PathVariable int dishId){
 
+        List<Ingredient> ingredientsToDish = dishService.getIngredientsToThisDish(dishId);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("dish", dishService.getDishByID(dishId));
+        modelAndView.addObject("ingredientsToDish", ingredientsToDish);
 
         modelAndView.setViewName("dish");
-
-        List<Ingredient> ingredientsToDish = dishService.getIngredientsToThisDish(dishId);
 
         setPictureForEmployee(dishId, modelAndView);
 
@@ -103,58 +109,61 @@ public class DishController {
     @RequestMapping(value = "/newDish", method = RequestMethod.GET)
     public ModelAndView addNewEmployee() {
 
+        List<Ingredient> ingredients = dishService.getAllIngredients();
+        boolean doesItAlreadyExist = false;
+
         ModelAndView modelAndView = new ModelAndView();
 
-        boolean doesItAlreadyExist = false;
+        modelAndView.addObject("listOfIncludedIngredients", new ArrayList<>());
         modelAndView.addObject("doesItAlreadyExist", doesItAlreadyExist);
+        modelAndView.addObject("ingredients", ingredients);
 
         modelAndView.setViewName("newDish");
 
         return modelAndView;
     }
-//
-//    @RequestMapping(value = "/update_EmployeeId={employeeID}", method = RequestMethod.GET)
-//    public ModelAndView updateEmployee(@PathVariable String employeeID) {
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//        boolean doesItAlreadyExist = true;
-//        modelAndView.addObject("doesItAlreadyExist", doesItAlreadyExist);
-//
-//        modelAndView.addObject("employee", employeeService.getEmployeeByID(Integer.parseInt(employeeID)));
-//
-//        modelAndView.setViewName("newEmployee");
-//
-//        return modelAndView;
-//    }
-//
-//    @RequestMapping(value = "/updatedEmployeeId={employeeId}", method = RequestMethod.POST)
-//    public ModelAndView updateExistingEmployee(@PathVariable int employeeId,
-//                                             @RequestParam("employeeName") String firstName,
-//                                             @RequestParam("employeeSurname") String lastName,
-//                                             @RequestParam("employeePhoneNumber") String phoneNumber,
-//                                             @RequestParam("employeeDOB") String dateOfBirth,
-//                                             @RequestParam("employeePosition") String position,
-//                                             @RequestParam("employeeSalary") double salary)
-//    {
-//
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//        Employee employeeWithNewInformation = employeeService.setInformation(firstName, lastName, phoneNumber,dateOfBirth,
-//                                                                             position, salary);
-//
-//        employeeService.updateEmployeeInfo(employeeId, employeeWithNewInformation);
-//
-//        modelAndView.addObject("employee", employeeService.getEmployeeByID(employeeId));
-//
-//        setPictureForEmployee(employeeId, modelAndView);
-//
-//        modelAndView.setViewName("employee");
-//
-//        return modelAndView;
-//    }
-//
+
+    @RequestMapping(value = "/update_DishId={dishID}", method = RequestMethod.GET)
+    public ModelAndView updateDish(@PathVariable int dishID) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        boolean doesItAlreadyExist = true;
+        modelAndView.addObject("doesItAlreadyExist", doesItAlreadyExist);
+
+        modelAndView.addObject("dish", dishService.getDishByID(dishID));
+
+        modelAndView.setViewName("newDish");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updatedDishId={dishId}", method = RequestMethod.POST)
+    public ModelAndView updateExistingEmployee(@RequestParam("selectedIngredients") ArrayList selectedIngredients,
+                                               @RequestParam("dishName") String name,
+                                               @RequestParam("dishCategory") String category,
+                                               @RequestParam("dishPrice") int price,
+                                               @RequestParam("dishWeight") int weight,
+                                               @RequestParam("dishId") int dishId
+    )
+    {
+
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        Dish dishWithNewInformation = dishService.setInformation(name, category, price, weight, selectedIngredients);
+
+        dishService.updateDishInfo(dishId, dishWithNewInformation);
+
+        modelAndView.addObject("employee", dishService.getDishByID(dishId));
+
+        setPictureForEmployee(dishId, modelAndView);
+
+        modelAndView.setViewName("dish");
+
+        return modelAndView;
+    }
+
     private void setPictureForEmployee(@PathVariable int dishId, ModelAndView modelAndView) {
         String path = "D:\\edu\\IdeaProjects\\Restaurant_MVC\\src\\main\\webapp\\resources\\images\\dishes\\id"+dishId+".jpg";
         File f = new File(path);
@@ -171,4 +180,6 @@ public class DishController {
     public void setDishService(DishService dishService) {
         this.dishService = dishService;
     }
+
+
 }
